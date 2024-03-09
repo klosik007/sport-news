@@ -29,6 +29,12 @@ class NewsController extends AbstractController
         return $this->json("");
     }
 
+    #[Route('/news/top3', name: 'get_top3_authors_with_most_news', methods: ['GET'])]
+    public function getTop3AuthorsWithMostNews(): JsonResponse
+    {
+        return $this->json("");
+    }
+
     #[Route('/news/{id}', name: 'get_news_by_id', methods: ['GET'])]
     public function getNewsById(int $id): JsonResponse
     {
@@ -37,12 +43,6 @@ class NewsController extends AbstractController
 
     #[Route('/news/{author}/all', name: 'get_all_news_by_author_name', methods: ['GET'])]
     public function getAllNewsByAuthorName(string $author): JsonResponse
-    {
-        return $this->json("");
-    }
-
-    #[Route('/news/top3', name: 'get_top3_authors_with_most_news', methods: ['GET'])]
-    public function getTop3AuthorsWithMostNews(): JsonResponse
     {
         return $this->json("");
     }
