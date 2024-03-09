@@ -43,30 +43,30 @@ class Author
         return $this;
     }
 
-    /**
-     * @return Collection<int, News>
-     */
-    public function getNews(): Collection
-    {
-        return $this->news;
-    }
-
-    public function addNews(News $news): static
-    {
-        if (!$this->news->contains($news)) {
-            $this->news->add($news);
-            $news->addAuthor($this);
-        }
-
-        return $this;
-    }
-
-    public function removeNews(News $news): static
-    {
-        if ($this->news->removeElement($news)) {
-            $news->removeAuthor($this);
-        }
-
-        return $this;
-    }
+//    /**
+//     * @return Collection<int, News>
+//     */
+//    public function getNews(): Collection
+//    {
+//        return $this->news;
+//    }
+//
+//    public function addNews(News $news): static
+//    {
+//        if (!$this->news->contains($news)) {
+//            $this->news->add($news);
+//            $news->addAuthor($this);
+//        }
+//
+//        return $this;
+//    }
+//
+//    public function removeNews(News $news): static
+//    {
+//        if ($this->news->removeElement($news)) {
+//            $news->removeAuthor($this);
+//        }
+//
+//        return $this;
+//    }
 }
