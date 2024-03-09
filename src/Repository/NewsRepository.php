@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\News;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * @extends ServiceEntityRepository<News>
@@ -21,28 +22,19 @@ class NewsRepository extends ServiceEntityRepository
         parent::__construct($registry, News::class);
     }
 
-    //    /**
-    //     * @return News[] Returns an array of News objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('n')
-    //            ->andWhere('n.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('n.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    public function findAllNewsByAuthorName(string $author): array
+    {
+        $connection = $this->getEntityManager()->getConnection();
 
-    //    public function findOneBySomeField($value): ?News
-    //    {
-    //        return $this->createQueryBuilder('n')
-    //            ->andWhere('n.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+        $query = '
+                SELECT news.id, news.title, news.text, news.created_at FROM news
+                INNER JOIN news_author ON news_author.news_id = news.id 
+                INNER JOIN author ON author.id = news_author.author_id 
+                WHERE author.name=:author
+        ';
+
+        $result = $connection->executeQuery($query, ['author' => $author]);
+
+        return $result->fetchAllAssociative();
+    }
 }
