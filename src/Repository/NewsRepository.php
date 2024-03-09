@@ -37,4 +37,23 @@ class NewsRepository extends ServiceEntityRepository
 
         return $result->fetchAllAssociative();
     }
+
+    public function findTop3AuthorsWithMostNewsLastWeek(): array
+    {
+        $connection = $this->getEntityManager()->getConnection();
+
+        $query = '
+                SELECT author.name, COUNT(author.name) AS news_count FROM author
+                INNER JOIN news_author ON news_author.author_id = author.id
+                INNER JOIN news on news.id = news_author.news_id
+                WHERE news.created_at BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK) AND NOW()
+                GROUP BY author.name 
+                ORDER BY COUNT(author.name) DESC 
+                LIMIT 3;
+        ';
+
+        $result = $connection->executeQuery($query);
+
+        return $result->fetchAllAssociative();
+    }
 }
