@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\NewsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -36,14 +37,18 @@ class NewsController extends AbstractController
     }
 
     #[Route('/news/{id}', name: 'get_news_by_id', methods: ['GET'])]
-    public function getNewsById(int $id): JsonResponse
+    public function getNewsById(NewsRepository $newsRepository, int $id): JsonResponse
     {
-        return $this->json("");
+        $newsByIdData = $newsRepository->find($id);
+
+        return $this->json($newsByIdData);
     }
 
     #[Route('/news/{author}/all', name: 'get_all_news_by_author_name', methods: ['GET'])]
-    public function getAllNewsByAuthorName(string $author): JsonResponse
+    public function getAllNewsByAuthorName(NewsRepository $newsRepository, string $author): JsonResponse
     {
-        return $this->json("");
+        $allNewsByAuthorNameData = $newsRepository->findAllNewsByAuthorName($author);
+
+        return $this->json($allNewsByAuthorNameData);
     }
 }
