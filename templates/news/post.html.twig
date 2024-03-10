@@ -21,11 +21,9 @@
             <br>
             <label for="news_text">Content</label>
             <br>
-            <textarea name="news_text" id="news_text">
-                {{ news_data.text ?? "" }}
-            </textarea>
+            <textarea name="news_text" id="news_text">{{ news_data.text ?? "" }}</textarea>
             <br>
-            <button type="submit" class="btn btn-block btn-danger">
+            <button type="submit">
                 {% if app.request.get('_route') == 'update_news' %}
                     Edit Post
                 {% else %}

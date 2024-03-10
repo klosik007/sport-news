@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Repository\NewsRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
@@ -28,9 +30,28 @@ class NewsController extends AbstractController
     }
 
     #[Route('/news/{id}', name: 'update_news', methods: ['GET', 'POST'])]
-    public function updateNews(NewsRepository $newsRepository, int $id): Response
-    {
+    public function updateNews(
+        NewsRepository $newsRepository,
+        Request $request,
+        EntityManagerInterface $entityManager,
+        int $id
+    ): Response {
         $newsData = $newsRepository->find($id);
+
+        if ($request->getMethod() == Request::METHOD_POST)
+        {
+            $title = $request->request->get('news_title');
+            $text = $request->request->get('news_text');
+
+            $newsData->setTitle($title);
+            $newsData->setText($text);
+            $newsData->setCreatedAt($newsData->getCreatedAt());
+
+            $entityManager->persist($newsData);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_main_page');
+        }
 
         return $this->render('news/post.html.twig', [
             'news_data' => $newsData
