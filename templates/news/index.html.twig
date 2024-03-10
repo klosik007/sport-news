@@ -11,7 +11,7 @@
 <div class="container">
     <section id="news">
         {% for key, article in all_news %}
-            <h2>{{ article.title }}</h2>
+            <h2><a href="{{ path('update_news', {id: key+1}) }}">{{ article.title }}</a></h2>
             <p class="authors"><b>Authors:</b>
                 {% for writer in article.author %}
                     {{ writer.name }}

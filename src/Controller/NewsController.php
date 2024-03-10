@@ -27,10 +27,14 @@ class NewsController extends AbstractController
         return $this->json("");
     }
 
-    #[Route('/news/{id}', name: 'update_news', methods: ['PATCH'])]
-    public function updateNews(int $id): JsonResponse
+    #[Route('/news/{id}', name: 'update_news', methods: ['GET', 'POST'])]
+    public function updateNews(NewsRepository $newsRepository, int $id): Response
     {
-        return $this->json("");
+        $newsData = $newsRepository->find($id);
+
+        return $this->render('news/post.html.twig', [
+            'news_data' => $newsData
+        ]);
     }
 
     #[Route('/news/top3', name: 'get_top3_authors_with_most_news', methods: ['GET'])]
