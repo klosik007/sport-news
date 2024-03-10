@@ -14,10 +14,22 @@
         {% else %}
             <h2>Add article</h2>
             <form action="{{ path('add_news') }}" method="post" id="addNews">
+                <label for="news_authors">
+                    Author(s)
+                </label>
+                <br>
+                <select name="news_authors[]" id="news_authors" multiple>
+                    {% for key, author in authors %}
+                        <option value="{{ key + 1 }}">{{ author.name }}</option>
+                    {% endfor %}
+                </select>
+                <br>
         {% endif %}
             <label for="news_title">
-                Title<input type="text" name="news_title" id="news_title" value="{{ news_data.title ?? "" }}" />
+                Title
             </label>
+            <br>
+            <input type="text" name="news_title" id="news_title" value="{{ news_data.title ?? "" }}" />
             <br>
             <label for="news_text">Content</label>
             <br>

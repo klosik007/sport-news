@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\News;
+use App\Repository\AuthorRepository;
 use App\Repository\NewsRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -24,9 +26,37 @@ class NewsController extends AbstractController
     }
 
     #[Route('/news', name: 'add_news', methods: ['GET', 'POST'])]
-    public function addNews(): Response
-    {
-        return $this->render('news/post.html.twig');
+    public function addNews(
+        Request $request,
+        EntityManagerInterface $entityManager,
+        AuthorRepository $authorRepository
+    ): Response {
+        $authors = $authorRepository->getAllAuthors();
+
+        if ($request->getMethod() == Request::METHOD_POST)
+        {
+            $title = $request->request->get('news_title');
+            $text = $request->request->get('news_text');
+            $authorsFromForm = $request->request->all()['news_authors'] ?? [];
+
+            $news = new News();
+            $news->setTitle($title);
+            $news->setText($text);
+            $news->setCreatedAt(\DateTimeImmutable::createFromMutable(date_create()));
+
+            foreach ($authorsFromForm as $authorId)
+            {
+                $author = $authorRepository->find($authorId);
+                $news->addAuthor($author);
+            }
+
+            $entityManager->persist($news);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_main_page');
+        }
+
+        return $this->render('news/post.html.twig', ['authors' => $authors]);
     }
 
     #[Route('/news/{id}', name: 'update_news', methods: ['GET', 'POST'])]
