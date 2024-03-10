@@ -11,10 +11,13 @@ use Symfony\Component\Routing\Attribute\Route;
 class NewsController extends AbstractController
 {
     #[Route('/', name: 'app_main_page')]
-    public function index(): Response
+    public function index(NewsRepository $newsRepository): Response
     {
+        $allNews = $newsRepository->findAll();
+
         return $this->render('news/index.html.twig', [
             'controller_name' => 'NewsController',
+            'all_news' => $allNews
         ]);
     }
 
