@@ -21,10 +21,10 @@ class NewsController extends AbstractController
         ]);
     }
 
-    #[Route('/news', name: 'add_news', methods: ['POST'])]
-    public function addNews(): JsonResponse
+    #[Route('/news', name: 'add_news', methods: ['GET', 'POST'])]
+    public function addNews(): Response
     {
-        return $this->json("");
+        return $this->render('news/post.html.twig');
     }
 
     #[Route('/news/{id}', name: 'update_news', methods: ['GET', 'POST'])]

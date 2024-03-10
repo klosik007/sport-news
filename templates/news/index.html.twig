@@ -9,6 +9,9 @@
 </style>
 
 <div class="container">
+    <section id="addPost">
+        <a href="{{ path('add_news') }}">Add Article</a>
+    </section>
     <section id="news">
         {% for key, article in all_news %}
             <h2><a href="{{ path('update_news', {id: key+1}) }}">{{ article.title }}</a></h2>
