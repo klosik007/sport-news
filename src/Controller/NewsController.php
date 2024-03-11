@@ -38,6 +38,12 @@ class NewsController extends AbstractController
             $text = $request->request->get('news_text');
             $authorsFromForm = $request->request->all()['news_authors'] ?? [];
 
+            if (empty($title) || empty($text) || empty($authorsFromForm) || strlen($title) > 255)
+            {
+                //practically rendering the same post.html page
+                return $this->render('news/post.html.twig', ['authors' => $authors]);
+            }
+
             $news = new News();
             $news->setTitle($title);
             $news->setText($text);
@@ -71,6 +77,14 @@ class NewsController extends AbstractController
         {
             $title = $request->request->get('news_title');
             $text = $request->request->get('news_text');
+
+            if (empty($title) || empty($text) || strlen($title) > 255)
+            {
+                //practically rendering the same post.html page
+                return $this->render('news/post.html.twig', [
+                    'news_data' => $newsData
+                ]);
+            }
 
             $newsData->setTitle($title);
             $newsData->setText($text);

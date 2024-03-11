@@ -7,6 +7,25 @@
         .container{ margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
     </style>
 
+    <script>
+        function checkInputs() {
+            let authors = document.getElementById('news_authors') || false;
+            let title = document.getElementById('news_title').value.length > 0;
+            let text = document.getElementById('news_text').value.length > 0 &&
+                       document.getElementById('news_text').value.length <= 255;
+
+            // edit article
+            if (!authors || !title || !text) {
+                document.getElementById('inputMessage').removeAttribute('hidden');
+            }
+
+            // add article
+            if (authors) {
+                if (authors.value.length === 0 || !title || !text)
+                    document.getElementById('inputMessage').removeAttribute('hidden');
+            }
+        }
+    </script>
     <div class="container">
         {% if app.request.get('_route') == 'update_news' %}
             <h2>Edit article</h2>
@@ -35,7 +54,7 @@
             <br>
             <textarea name="news_text" id="news_text">{{ news_data.text ?? "" }}</textarea>
             <br>
-            <button type="submit">
+            <button type="submit" onclick="checkInputs()">
                 {% if app.request.get('_route') == 'update_news' %}
                     Edit Post
                 {% else %}
@@ -43,5 +62,6 @@
                 {% endif %}
             </button>
         </form>
+        <p id="inputMessage" hidden>Provide all correct data!</p>
     </div>
 {% endblock %}
