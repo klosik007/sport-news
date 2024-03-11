@@ -16,33 +16,29 @@ class NewsControllerTest extends WebTestCase
 
     public function testAddNews(): void
     {
-        $newsJsonData = [
-            'headers' => ['Content-Type' => 'application/json'],
-            'json'=> [
-                "title"=> "Bramka Lewadowskiego w meczu Barcy",
-                "text"=> "Lorem ipsum est docet alert"
-            ]
+        $newsData = [
+            "news_title" => "Bramka Lewadowskiego w meczu Barcy vol.2",
+            "news_text" => "Lorem ipsum est docet alert",
+            "news_authors" => [1]
         ];
 
         $client = static::createClient();
-        $crawler = $client->request('POST', '/news', $newsJsonData);
+        $crawler = $client->request('POST', '/news', $newsData);
 
-        $this->assertResponseIsSuccessful();
+        $this->assertResponseRedirects();
     }
 
     public function testUpdateNews(): void
     {
-        $newsJsonData = [
-            'headers' => ['Content-Type' => 'application/json'],
-            'json'=> [
-                "title"=> "Bramka Lewandowskiego w meczu Barcy",
-            ]
+        $newsData = [
+            'news_title' => "Bramka Lewandowskiego w meczu Barcy",
+            'news_text' => "Tekst"
         ];
 
         $client = static::createClient();
-        $crawler = $client->request('PATCH', '/news/1', $newsJsonData);
+        $crawler = $client->request('POST', '/news/1', $newsData);
 
-        $this->assertResponseIsSuccessful();
+        $this->assertResponseRedirects();
     }
 
     public function testGetNewsById(): void
