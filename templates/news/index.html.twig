@@ -28,7 +28,7 @@
                 {% for writer in article.author %}
                     {{ writer.name }}
                 {% endfor %}
-                <b>Created at:</b> {{ article.createdAt.format('Y-m-d h:m') }}
+                <b>Created at:</b> {{ article.createdAt.format('Y-m-d H:i:s') }}
             </p>
             <p>{{ article.text }}</p>
             <hr>
