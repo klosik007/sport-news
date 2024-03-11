@@ -18,7 +18,13 @@
         {% endif %}
         {% for key, article in all_news %}
             <h2><a href="{{ path('update_news', {id: key+1}) }}">{{ article.title }}</a></h2>
-            <p class="authors"><b>Authors:</b>
+            <p class="authors">
+                {% if article.author|length > 1 %}
+                    <b>Authors:</b>
+                {% else %}
+                    <b>Author:</b>
+                {% endif %}
+
                 {% for writer in article.author %}
                     {{ writer.name }}
                 {% endfor %}
