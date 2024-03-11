@@ -13,6 +13,9 @@
         <a href="{{ path('add_news') }}">Add Article</a>
     </section>
     <section id="news">
+        {% if all_news|length == 0 %}
+            <p>No news available</p>
+        {% endif %}
         {% for key, article in all_news %}
             <h2><a href="{{ path('update_news', {id: key+1}) }}">{{ article.title }}</a></h2>
             <p class="authors"><b>Authors:</b>
