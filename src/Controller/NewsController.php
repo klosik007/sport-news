@@ -110,8 +110,10 @@ class NewsController extends AbstractController
     }
 
     #[Route('/news/{author}/all', name: 'get_all_news_by_author_name', methods: ['GET'])]
-    public function getAllNewsByAuthorName(NewsRepository $newsRepository, string $author): JsonResponse
-    {
+    public function getAllNewsByAuthorName(
+        NewsRepository $newsRepository,
+        string $author
+    ): JsonResponse {
         $allNewsByAuthorNameData = $newsRepository->findAllNewsByAuthorName($author);
 
         return $this->json($allNewsByAuthorNameData);
