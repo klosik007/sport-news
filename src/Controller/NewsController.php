@@ -20,7 +20,6 @@ class NewsController extends AbstractController
         $allNews = $newsRepository->findAll();
 
         return $this->render('news/index.html.twig', [
-            'controller_name' => 'NewsController',
             'all_news' => $allNews
         ]);
     }
@@ -94,14 +93,6 @@ class NewsController extends AbstractController
         $top3AuthorsWithMostNewsData = $newsRepository->findTop3AuthorsWithMostNewsLastWeek();
 
         return $this->json($top3AuthorsWithMostNewsData);
-    }
-
-    #[Route('/news/{id}', name: 'get_news_by_id', methods: ['GET'])]
-    public function getNewsById(NewsRepository $newsRepository, int $id): JsonResponse
-    {
-        $newsByIdData = $newsRepository->find($id);
-
-        return $this->json($newsByIdData);
     }
 
     #[Route('/news/{author}/all', name: 'get_all_news_by_author_name', methods: ['GET'])]
