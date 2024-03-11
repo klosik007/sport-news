@@ -13,7 +13,7 @@
                 <p class="fs-3">No news available</p>
             {% endif %}
             {% for key, article in all_news %}
-                <h2><a href="{{ path('update_news', {id: key+1}) }}">{{ article.title }}</a></h2>
+                <h2><a href="{{ path('update_news', {id: article.id }) }}">{{ article.title }}</a></h2>
                 <p class="fs-6">
                     {% if article.author|length > 1 %}
                         <b>Authors:</b>
