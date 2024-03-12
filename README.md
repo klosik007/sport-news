@@ -5,15 +5,20 @@ Symfony 7 web application for showing, adding and editing news.
 Production version is available here:
 
 https://shrouded-caverns-99191-a0da856161c5.herokuapp.com
+
 ## Setup
 If you wish to run application on local environment:
 - fetch repo
-- run queries from db_data.sql to create tables and insert example values
-- make sure you have composer installed (https://getcomposer.org/download/)
-- type composer install in repo terminal
+- run queries from db_data.sql to create tables and insert example values in your MySQL database instance (for example by MySQL Workbench), make sure that MySQL server is running
+- make sure you have composer installed (https://getcomposer.org/download/): type composer --version if you're not sure
+- Symfony CLI should be installed as well (https://symfony.com/download)
+- type composer install in repo terminal, be sure that in php.ini file extension=zip line is uncommented
 - make sure your local instance of database has user root on port 3306 with url 127.0.0.1 - unless you won't be able to do database requests
 - if you want to change database connection info, change this line in .env file:
-  DATABASE_URL="mysql://type_user_name:type_password_here@127.0.0.1:3306/app?charset=utf8mb4"
+  DATABASE_URL="mysql://type_user_name_here:type_password_here@127.0.0.1:3306/sportNews?charset=utf8mb4"
+- type: symfony server:start in terminal and type 127.0.0.1:8000 in browser to load project  
+
+I should have made a Docker configuration but so far I din't find proper configuration, even recommended walkthrough mentioned here (https://github.com/dunglas/symfony-docker) didn't work :(
 
 ## Endpoints
 News JSON response:
