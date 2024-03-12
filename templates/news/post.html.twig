@@ -22,6 +22,8 @@
             }
         }
     </script>
+    <div class="card">
+        <div class="card-body">
         {% if app.request.get('_route') == 'update_news' %}
             <h2>Edit article</h2>
             <form action="{{ path('update_news', {id: news_data.id}) }}" method="post" id="updateNews">
@@ -52,8 +54,10 @@
                         Add Post
                     {% endif %}
                 </button>
+                <div id="inputMessage" class="alert alert-danger mt-2" hidden>
+                    Provide all correct data!
+                </div>
             </form>
-            <div id="inputMessage" class="alert alert-danger mt-2" hidden>
-                Provide all correct data!
-            </div>
+        </div>
+    </div>
 {% endblock %}

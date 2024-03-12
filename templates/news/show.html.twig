@@ -3,21 +3,22 @@
 {% block title %}Meczyki.pl{% endblock %}
 
 {% block body %}
-    <div class="row">
-    <div class="col-10">
-        <h2>{{ news_data.title }}</a></h2>
-        <p class="fs-6">
-            {% if news_data.author|length > 1 %}
-                <b>Authors:</b>
-            {% else %}
-                <b>Author:</b>
-            {% endif %}
+    <div class="card mb-3">
+        <div class="card-body">
+            <h2>{{ news_data.title }}</a></h2>
+            <p class="fs-6">
+                {% if news_data.author|length > 1 %}
+                    <b>Authors:</b>
+                {% else %}
+                    <b>Author:</b>
+                {% endif %}
 
-            {% for writer in news_data.author %}
-                {{ writer.name }}
-            {% endfor %}
-            <b>Created at:</b> {{ news_data.createdAt.format('Y-m-d H:i:s') }}
-        </p>
-        <p class="fs-3">{{ news_data.text }}</p>
+                {% for writer in news_data.author %}
+                    {{ writer.name }}
+                {% endfor %}
+                <b>Created at:</b> {{ news_data.createdAt.format('Y-m-d H:i:s') }}
+            </p>
+            <p class="fs-3">{{ news_data.text }}</p>
+        </div>
     </div>
 {% endblock %}

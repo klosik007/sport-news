@@ -11,28 +11,31 @@
             <p class="fs-3">No news available</p>
         {% endif %}
         {% for article in all_news %}
-            <div class="row">
-                <div class="col-11">
-                    <h2><a href="{{ path('get_news', {id: article.id }) }}">{{ article.title }}</a></h2>
-                    <p class="fs-6">
-                        {% if article.author|length > 1 %}
-                            <b>Authors:</b>
-                        {% else %}
-                            <b>Author:</b>
-                        {% endif %}
+        <div class="card mb-3">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-11">
+                        <h2><a href="{{ path('get_news', {id: article.id }) }}">{{ article.title }}</a></h2>
+                        <p class="fs-6">
+                            {% if article.author|length > 1 %}
+                                <b>Authors:</b>
+                            {% else %}
+                                <b>Author:</b>
+                            {% endif %}
 
-                        {% for writer in article.author %}
-                            {{ writer.name }}
-                        {% endfor %}
-                        <b>Created at:</b> {{ article.createdAt.format('Y-m-d H:i:s') }}
-                    </p>
-                    <p class="fs-3 text-truncate">{{ article.text }}</p>
-                </div>
-                <div class="col-1">
-                    <p class="fs-5"><a href="{{ path('update_news', {id: article.id }) }}">Edit</a></p>
+                            {% for writer in article.author %}
+                                {{ writer.name }}
+                            {% endfor %}
+                            <b>Created at:</b> {{ article.createdAt.format('Y-m-d H:i:s') }}
+                        </p>
+                        <p class="fs-3 text-truncate">{{ article.text }}</p>
+                    </div>
+                    <div class="col-1">
+                        <p class="fs-5"><a href="{{ path('update_news', {id: article.id }) }}">Edit</a></p>
+                    </div>
                 </div>
             </div>
-            <hr>
+        </div>
         {% endfor %}
     </section>
 {% endblock %}
