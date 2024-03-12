@@ -30,23 +30,24 @@ class NewsControllerTest extends WebTestCase
 
     public function testUpdateNews(): void
     {
+        $id = 1;
         $newsData = [
             'news_title' => "Bramka Lewandowskiego w meczu Barcy",
             'news_text' => "Tekst"
         ];
 
         $client = static::createClient();
-        $crawler = $client->request('POST', '/news/1', $newsData);
+        $crawler = $client->request('POST', '/news/'.$id.'/update', $newsData);
 
         $this->assertResponseRedirects();
     }
 
-    public function testGetNewsById(): void
+    public function testShowNewsById(): void
     {
         $id = 1;
 
         $client = static::createClient();
-        $crawler = $client->request('GET', '/news/'.$id);
+        $crawler = $client->request('GET', '/news/'.$id.'/show');
 
         $this->assertResponseIsSuccessful();
     }
