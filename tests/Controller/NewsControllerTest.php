@@ -37,7 +37,7 @@ class NewsControllerTest extends WebTestCase
         ];
 
         $client = static::createClient();
-        $crawler = $client->request('POST', '/news/'.$id.'/update', $newsData);
+        $crawler = $client->request('POST', '/news/'.$id.'/edit', $newsData);
 
         $this->assertResponseRedirects();
     }
@@ -47,7 +47,7 @@ class NewsControllerTest extends WebTestCase
         $id = 1;
 
         $client = static::createClient();
-        $crawler = $client->request('GET', '/news/'.$id.'/show');
+        $crawler = $client->request('GET', '/news/'.$id);
 
         $this->assertResponseIsSuccessful();
     }

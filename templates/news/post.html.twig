@@ -24,9 +24,9 @@
     </script>
     <div class="card">
         <div class="card-body">
-        {% if app.request.get('_route') == 'update_news' %}
+            {% if app.request.get('_route') == 'edit_news' %}
             <h2>Edit article</h2>
-            <form action="{{ path('update_news', {id: news_data.id}) }}" method="post" id="updateNews">
+            <form action="{{ path('edit_news', {id: news_data.id}) }}" method="post" id="updateNews">
         {% else %}
             <h2>Add article</h2>
             <form action="{{ path('add_news') }}" method="post" id="addNews">
@@ -48,7 +48,7 @@
                     <textarea class="form-control" name="news_text" id="news_text">{{ news_data.text ?? "" }}</textarea>
                 </div>
                 <button type="submit" class="btn btn-primary" onclick="checkInputs()">
-                    {% if app.request.get('_route') == 'update_news' %}
+                    {% if app.request.get('_route') == 'edit_news' %}
                         Edit Post
                     {% else %}
                         Add Post
