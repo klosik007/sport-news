@@ -52,6 +52,16 @@ class NewsControllerTest extends WebTestCase
         $this->assertResponseIsSuccessful();
     }
 
+    public function testGetNewsById(): void
+    {
+        $id = 1;
+
+        $client = static::createClient();
+        $crawler = $client->request('GET', '/news/'.$id.'/json');
+
+        $this->assertResponseIsSuccessful();
+    }
+
     public function testGetAllNewsByAuthorName(): void
     {
         $authorName = "Przemek";

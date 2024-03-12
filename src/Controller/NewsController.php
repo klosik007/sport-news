@@ -113,6 +113,16 @@ class NewsController extends AbstractController
         ]);
     }
 
+    #[Route('/news/{id}/json', name: 'get_news', methods: ['GET'])]
+    public function getNews(
+        NewsRepository $newsRepository,
+        int $id
+    ): JsonResponse {
+        $newsData = $newsRepository->find($id);
+
+        return $this->json($newsData);
+    }
+
     #[Route('/news/top3', name: 'get_top3_authors_with_most_news', methods: ['GET'])]
     public function getTop3AuthorsWithMostNews(NewsRepository $newsRepository): JsonResponse
     {
