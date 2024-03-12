@@ -64,8 +64,8 @@ class NewsController extends AbstractController
         return $this->render('news/post.html.twig', ['authors' => $authors]);
     }
 
-    #[Route('/news/{id}/show', name: 'get_news', methods: ['GET'])]
-    public function getNews(
+    #[Route('/news/{id}/show', name: 'show_news', methods: ['GET'])]
+    public function showNews(
         NewsRepository $newsRepository,
         int $id
     ): Response {

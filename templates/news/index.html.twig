@@ -15,7 +15,7 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-11">
-                        <h2><a href="{{ path('get_news', {id: article.id }) }}">{{ article.title }}</a></h2>
+                        <h2><a href="{{ path('show_news', {id: article.id }) }}">{{ article.title }}</a></h2>
                         <p class="fs-6">
                             {% if article.author|length > 1 %}
                                 <b>Authors:</b>
