@@ -3,33 +3,36 @@
 {% block title %}Meczyki.pl{% endblock %}
 
 {% block body %}
-<div class="container">
-    <div class="mt-3">
-        <section id="addPost" class="mb-3">
-            <a href="{{ path('add_news') }}" class="btn btn-primary">Add Article</a>
-        </section>
-        <section id="news">
-            {% if all_news|length == 0 %}
-                <p class="fs-3">No news available</p>
-            {% endif %}
-            {% for key, article in all_news %}
-                <h2><a href="{{ path('update_news', {id: article.id }) }}">{{ article.title }}</a></h2>
-                <p class="fs-6">
-                    {% if article.author|length > 1 %}
-                        <b>Authors:</b>
-                    {% else %}
-                        <b>Author:</b>
-                    {% endif %}
+    <section id="addPost" class="mb-3">
+        <a href="{{ path('add_news') }}" class="btn btn-primary">Add Article</a>
+    </section>
+    <section id="news">
+        {% if all_news|length == 0 %}
+            <p class="fs-3">No news available</p>
+        {% endif %}
+        {% for article in all_news %}
+            <div class="row">
+                <div class="col-11">
+                    <h2><a href="{{ path('get_news', {id: article.id }) }}">{{ article.title }}</a></h2>
+                    <p class="fs-6">
+                        {% if article.author|length > 1 %}
+                            <b>Authors:</b>
+                        {% else %}
+                            <b>Author:</b>
+                        {% endif %}
 
-                    {% for writer in article.author %}
-                        {{ writer.name }}
-                    {% endfor %}
-                    <b>Created at:</b> {{ article.createdAt.format('Y-m-d H:i:s') }}
-                </p>
-                <p class="fs-3">{{ article.text }}</p>
-                <hr>
-            {% endfor %}
-        </section>
-    </div>
-</div>
+                        {% for writer in article.author %}
+                            {{ writer.name }}
+                        {% endfor %}
+                        <b>Created at:</b> {{ article.createdAt.format('Y-m-d H:i:s') }}
+                    </p>
+                    <p class="fs-3 text-truncate">{{ article.text }}</p>
+                </div>
+                <div class="col-1">
+                    <p class="fs-5"><a href="{{ path('update_news', {id: article.id }) }}">Edit</a></p>
+                </div>
+            </div>
+            <hr>
+        {% endfor %}
+    </section>
 {% endblock %}

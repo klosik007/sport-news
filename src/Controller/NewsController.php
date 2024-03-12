@@ -64,15 +64,19 @@ class NewsController extends AbstractController
         return $this->render('news/post.html.twig', ['authors' => $authors]);
     }
 
-    #[Route('/news/top3', name: 'get_top3_authors_with_most_news', methods: ['GET'])]
-    public function getTop3AuthorsWithMostNews(NewsRepository $newsRepository): JsonResponse
-    {
-        $top3AuthorsWithMostNewsData = $newsRepository->findTop3AuthorsWithMostNewsLastWeek();
+    #[Route('/news/{id}/show', name: 'get_news', methods: ['GET'])]
+    public function getNews(
+        NewsRepository $newsRepository,
+        int $id
+    ): Response {
+        $newsData = $newsRepository->find($id);
 
-        return $this->json($top3AuthorsWithMostNewsData);
+        return $this->render('news/show.html.twig', [
+            'news_data' => $newsData
+        ]);
     }
 
-    #[Route('/news/{id}', name: 'update_news', methods: ['GET', 'POST'])]
+    #[Route('/news/{id}/update', name: 'update_news', methods: ['GET', 'POST'])]
     public function updateNews(
         NewsRepository $newsRepository,
         Request $request,
@@ -107,6 +111,14 @@ class NewsController extends AbstractController
         return $this->render('news/post.html.twig', [
             'news_data' => $newsData
         ]);
+    }
+
+    #[Route('/news/top3', name: 'get_top3_authors_with_most_news', methods: ['GET'])]
+    public function getTop3AuthorsWithMostNews(NewsRepository $newsRepository): JsonResponse
+    {
+        $top3AuthorsWithMostNewsData = $newsRepository->findTop3AuthorsWithMostNewsLastWeek();
+
+        return $this->json($top3AuthorsWithMostNewsData);
     }
 
     #[Route('/news/{author}/all', name: 'get_all_news_by_author_name', methods: ['GET'])]
