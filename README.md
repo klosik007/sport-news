@@ -18,7 +18,13 @@ If you wish to run application on local environment:
   DATABASE_URL="mysql://type_user_name_here:type_password_here@127.0.0.1:3306/sportNews?charset=utf8mb4"
 - type: symfony server:start in terminal and type 127.0.0.1:8000 in browser to load project  
 
-I should have made a Docker configuration but so far I din't find proper configuration, even recommended walkthrough mentioned here (https://github.com/dunglas/symfony-docker) didn't work :(
+Docker:
+- fetch repo
+- open project, in terminal type 'cd .docker'
+- then type 'docker compose up -d'
+- after the containers being composed, go to 'php-1' container terminal in Docker (Show container actions -> Open in terminal)
+- type 'composer install'
+- in browser type localhost to show main page
 
 ## Endpoints
 News JSON response:
