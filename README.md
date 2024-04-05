@@ -1,10 +1,6 @@
 # SportNews
 ## Overview
 Symfony 7 web application for showing, adding and editing news.
-## Production version
-Production version is available here:
-
-https://shrouded-caverns-99191-a0da856161c5.herokuapp.com
 
 ## Setup
 If you wish to run application on local environment:
